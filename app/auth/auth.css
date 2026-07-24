@@ -1,0 +1,9 @@
+/* 
+  Nyasawallet Authentication Stylesheet
+  Tailwind CSS inline utility classes are preferred.
+  This file is created for any custom overrides if necessary.
+*/
+
+.auth-gradient-bg {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
