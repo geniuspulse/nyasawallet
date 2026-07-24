@@ -62,7 +62,7 @@ export default function Navbar() {
               Sign In
             </Link>
             <Link
-              href="/auth/register"
+              href="/auth/sign-up"
               className="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 transition-all duration-200"
             >
               Get Started
@@ -117,7 +117,7 @@ export default function Navbar() {
                 Sign In
               </Link>
               <Link
-                href="/auth/register"
+                href="/auth/sign-up"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700"
               >
