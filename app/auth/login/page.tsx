@@ -44,7 +44,7 @@ function LoginForm() {
       router.push(redirectParam);
       router.refresh();
     } catch (err: any) {
-      setError(err.message || 'Invalid email or password. Please try again.');
+      setError(typeof err?.message === 'string' ? err.message : err?.toString?.() || 'Invalid email or password. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -67,7 +67,7 @@ function LoginForm() {
         throw oauthError;
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred during Google sign in');
+      setError(typeof err?.message === 'string' ? err.message : err?.toString?.() || 'An error occurred during Google sign in');
       setLoading(false);
     }
   };

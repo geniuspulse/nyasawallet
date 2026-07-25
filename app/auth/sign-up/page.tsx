@@ -59,7 +59,7 @@ function SignUpForm() {
         setSuccess(true);
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred during registration. Please try again.');
+      setError(typeof err?.message === 'string' ? err.message : err?.toString?.() || 'An error occurred during registration. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -82,7 +82,7 @@ function SignUpForm() {
         throw oauthError;
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred during Google sign in');
+      setError(typeof err?.message === 'string' ? err.message : err?.toString?.() || 'An error occurred during Google sign in');
       setLoading(false);
     }
   };

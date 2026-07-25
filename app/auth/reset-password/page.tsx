@@ -79,7 +79,7 @@ export default function ResetPasswordPage() {
         router.replace('/auth/login');
       }, 3000);
     } catch (err: any) {
-      setError(err.message || 'An error occurred. Please try again.');
+      setError(typeof err?.message === 'string' ? err.message : err?.toString?.() || 'An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
