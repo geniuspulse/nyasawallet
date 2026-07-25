@@ -46,72 +46,74 @@ export default async function WalletPage() {
   const available = balance - locked;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 font-display">My Wallet</h1>
-        <p className="text-slate-500 mt-1">Your USDT balance and transaction history</p>
+    <div className="space-y-4 animate-fade-in">
+      <div className="pb-2">
+        <h1 className="section-heading text-xl sm:text-2xl">My Wallet</h1>
+        <p className="text-sm text-slate-500 mt-0.5">Your USDT balance and transaction history</p>
       </div>
 
       {/* Balance Card */}
-      <Card className="bg-gradient-to-br from-brand-600 to-brand-900 text-white border-none shadow-xl">
-        <CardContent className="p-6">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900 text-white shadow-lg">
+        {/* Decorative glow */}
+        <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
+        <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-brand-400/10 blur-xl" />
+        
+        <div className="relative p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
               <p className="text-brand-100 text-sm font-medium">Total Balance</p>
-              <p className="text-4xl font-bold mt-1 font-display">
+              <p className="text-3xl font-bold mt-1 font-display tracking-tight">
                 {formatCurrency(balance, 'USDT')}
               </p>
             </div>
-            <div className="h-14 w-14 rounded-2xl bg-white/10 flex items-center justify-center">
-              <Wallet className="h-7 w-7 text-white" />
+            <div className="h-12 w-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+              <Wallet className="h-6 w-6 text-white" />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <div className="bg-white/10 rounded-xl p-4">
+          <div className="grid grid-cols-2 gap-3 mt-5">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/5">
               <p className="text-brand-100 text-xs">Available</p>
-              <p className="text-xl font-bold mt-1">{formatCurrency(available, 'USDT')}</p>
+              <p className="text-lg font-bold mt-0.5">{formatCurrency(available, 'USDT')}</p>
             </div>
-            <div className="bg-white/10 rounded-xl p-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/5">
               <p className="text-brand-100 text-xs">Locked</p>
-              <p className="text-xl font-bold mt-1">{formatCurrency(locked, 'USDT')}</p>
+              <p className="text-lg font-bold mt-0.5">{formatCurrency(locked, 'USDT')}</p>
             </div>
           </div>
           {wallet?.wallet_address && (
-            <div className="mt-4 bg-white/10 rounded-xl p-3">
+            <div className="mt-3 bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/5">
               <p className="text-brand-100 text-xs">Wallet Address</p>
-              <p className="font-mono text-sm mt-1 break-all">{wallet.wallet_address}</p>
+              <p className="font-mono text-xs mt-0.5 break-all opacity-90">{wallet.wallet_address}</p>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Transaction History */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle>Transaction History</CardTitle>
-              <CardDescription>All your wallet transactions</CardDescription>
-            </div>
-            {transactions.length > 0 && <ExportButton transactions={transactions} />}
+      <div className="rounded-xl border border-slate-200/60 bg-white shadow-sm">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100">
+          <div>
+            <h3 className="section-heading text-base">Transaction History</h3>
+            <p className="text-xs text-slate-500 mt-0.5">All your wallet transactions</p>
           </div>
-        </CardHeader>
-        <CardContent>
+          {transactions.length > 0 && <ExportButton transactions={transactions} />}
+        </div>
+        <div className="p-4">
           {transactions.length > 0 ? (
-            <div className="space-y-3">
+            <div className="divide-y divide-slate-50">
               {transactions.map((tx) => (
                 <TransactionItem key={tx.id} transaction={tx} />
               ))}
             </div>
           ) : (
             <EmptyState
-              icon={<Wallet className="h-10 w-10 text-slate-300" />}
+              icon={<Wallet className="h-8 w-8 text-slate-300" />}
               title="No transactions yet"
               description="Your transaction history will appear here once you start using your wallet."
             />
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

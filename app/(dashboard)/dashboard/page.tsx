@@ -48,95 +48,95 @@ export default async function DashboardPage() {
   const firstName = profile.full_name?.split(' ')[0] || 'there';
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-5 animate-fade-in">
       <PageHeader
         title={`Welcome back, ${firstName} 👋`}
         subtitle="Here's your wallet overview"
       />
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
           label="Wallet Balance"
           value={`${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
-          icon={<Wallet className="h-5 w-5" />}
+          icon={<Wallet className="h-4.5 w-4.5" />}
         />
         <StatCard
           label="Total Sent"
           value="0.00"
-          icon={<ArrowUpRight className="h-5 w-5" />}
+          icon={<ArrowUpRight className="h-4.5 w-4.5" />}
         />
         <StatCard
           label="Total Received"
           value="0.00"
-          icon={<ArrowDownLeft className="h-5 w-5" />}
+          icon={<ArrowDownLeft className="h-4.5 w-4.5" />}
         />
         <StatCard
           label="Transactions"
           value={recentTxns?.length || 0}
-          icon={<History className="h-5 w-5" />}
+          icon={<History className="h-4.5 w-4.5" />}
         />
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-4 gap-2.5">
         <Link
           href="/deposit"
-          className="card-hover group flex flex-col items-center gap-3 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-card hover:shadow-card-hover"
+          className="card-hover group flex flex-col items-center gap-2.5 rounded-xl border border-slate-200/60 bg-white p-4 shadow-sm hover:shadow-md"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
-            <ArrowDownLeft className="h-6 w-6" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
+            <ArrowDownLeft className="h-5 w-5" />
           </div>
-          <span className="text-sm font-semibold text-slate-700">Deposit</span>
+          <span className="text-xs font-semibold text-slate-700">Deposit</span>
         </Link>
         <Link
           href="/send"
-          className="card-hover group flex flex-col items-center gap-3 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-card hover:shadow-card-hover"
+          className="card-hover group flex flex-col items-center gap-2.5 rounded-xl border border-slate-200/60 bg-white p-4 shadow-sm hover:shadow-md"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
-            <ArrowUpRight className="h-6 w-6" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
+            <ArrowUpRight className="h-5 w-5" />
           </div>
-          <span className="text-sm font-semibold text-slate-700">Send</span>
+          <span className="text-xs font-semibold text-slate-700">Send</span>
         </Link>
         <Link
           href="/sell"
-          className="card-hover group flex flex-col items-center gap-3 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-card hover:shadow-card-hover"
+          className="card-hover group flex flex-col items-center gap-2.5 rounded-xl border border-slate-200/60 bg-white p-4 shadow-sm hover:shadow-md"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
-            <Coins className="h-6 w-6" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
+            <Coins className="h-5 w-5" />
           </div>
-          <span className="text-sm font-semibold text-slate-700">Sell USDT</span>
+          <span className="text-xs font-semibold text-slate-700">Sell</span>
         </Link>
         <Link
           href="/card"
-          className="card-hover group flex flex-col items-center gap-3 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-card hover:shadow-card-hover"
+          className="card-hover group flex flex-col items-center gap-2.5 rounded-xl border border-slate-200/60 bg-white p-4 shadow-sm hover:shadow-md"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
-            <CreditCard className="h-6 w-6" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 group-hover:scale-110 transition-transform">
+            <CreditCard className="h-5 w-5" />
           </div>
-          <span className="text-sm font-semibold text-slate-700">Virtual Card</span>
+          <span className="text-xs font-semibold text-slate-700">Card</span>
         </Link>
       </div>
 
       {/* Recent Transactions */}
-      <div className="rounded-2xl border border-slate-200/80 bg-white shadow-card">
-        <div className="flex items-center justify-between p-5 border-b border-slate-100">
-          <h3 className="font-display text-lg font-bold text-slate-900">Recent Activity</h3>
+      <div className="rounded-xl border border-slate-200/60 bg-white shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100">
+          <h3 className="section-heading text-base">Recent Activity</h3>
           <Link
             href="/transactions"
-            className="text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors"
+            className="text-xs font-semibold text-brand-600 hover:text-brand-700 transition-colors"
           >
             View all
           </Link>
         </div>
-        <div className="p-5">
+        <div className="px-5 py-3">
           {recentTxns && recentTxns.length > 0 ? (
-            <div className="space-y-3">
+            <div className="divide-y divide-slate-50">
               {recentTxns.map((txn: any) => (
-                <div key={txn.id} className="flex items-center justify-between py-3 border-b border-slate-50 last:border-0">
+                <div key={txn.id} className="flex items-center justify-between py-3">
                   <div className="flex items-center gap-3">
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${txn.type === 'send' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`}>
-                      {txn.type === 'send' ? <ArrowUpRight className="h-5 w-5" /> : <ArrowDownLeft className="h-5 w-5" />}
+                    <div className={`flex h-9 w-9 items-center justify-center rounded-lg ${txn.type === 'send' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`}>
+                      {txn.type === 'send' ? <ArrowUpRight className="h-4.5 w-4.5" /> : <ArrowDownLeft className="h-4.5 w-4.5" />}
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-slate-800">{txn.type === 'send' ? 'Sent' : 'Received'}</p>
@@ -150,12 +150,12 @@ export default async function DashboardPage() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-50 text-slate-300 mb-4">
-                <History className="h-8 w-8" />
+            <div className="flex flex-col items-center justify-center py-10 text-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-50 text-slate-300 mb-3">
+                <History className="h-7 w-7" />
               </div>
               <p className="text-sm font-medium text-slate-500">No transactions yet</p>
-              <p className="text-xs text-slate-400 mt-1">Start by depositing or sending USDT</p>
+              <p className="text-xs text-slate-400 mt-0.5">Start by depositing or sending USDT</p>
               <Link
                 href="/deposit"
                 className="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors"

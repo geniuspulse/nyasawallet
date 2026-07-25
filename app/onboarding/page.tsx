@@ -23,7 +23,7 @@ export default async function OnboardingPage() {
 
   // If already onboarded, send them straight to the wallet dashboard
   if ((profile as any)?.is_onboarded) {
-    redirect('/wallet');
+    redirect('/dashboard');
   }
 
   return (

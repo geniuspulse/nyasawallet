@@ -30,7 +30,7 @@ export async function updateSession(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
 
   // Protect dashboard and admin routes
-  const protectedPaths = ['/onboarding', '/wallet', '/transactions', '/deposit', '/send', '/card', '/referrals', '/profile', '/sell', '/support', '/dashboard'];
+  const protectedPaths = ['/onboarding', '/dashboard', '/wallet', '/transactions', '/deposit', '/send', '/card', '/referrals', '/profile', '/sell', '/support'];
   const adminPaths = ['/admin'];
   const authPaths = ['/auth/login', '/auth/sign-up', '/welcome'];
   const pathname = request.nextUrl.pathname;
@@ -57,15 +57,15 @@ export async function updateSession(request: NextRequest) {
 
     if (!profile || (profile.role !== 'admin' && profile.role !== 'super_admin')) {
       const url = request.nextUrl.clone();
-      url.pathname = '/wallet';
+      url.pathname = '/dashboard';
       return NextResponse.redirect(url);
     }
   }
 
-  // Logged-in user trying to access auth pages — send them to wallet dashboard
+  // Logged-in user trying to access auth pages — send them to dashboard
   if (user && isAuthPage) {
     const url = request.nextUrl.clone();
-    url.pathname = '/wallet';
+    url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
 
