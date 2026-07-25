@@ -82,7 +82,8 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
           id_type: idType,
           id_number: idNumber,
           referred_by: referralCode ? referralCode.trim() : null,
-          kyc_status: 'pending', // Auto-submit for review on completing onboarding
+          kyc_status: 'pending',
+          is_onboarded: true,
           updated_at: new Date().toISOString(),
         })
         .eq('user_id', user.id);
@@ -110,7 +111,7 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
       }
 
       // Redirect home
-      router.push('/');
+      router.push('/wallet');
       router.refresh();
     } catch (err: any) {
       setError(err.message || 'An error occurred while saving onboarding details.');

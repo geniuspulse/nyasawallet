@@ -17,6 +17,14 @@ export default async function WalletPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/auth/login');
 
+  // Redirect to onboarding if not yet completed
+  const { data: profileCheck } = await supabase
+    .from('profiles')
+    .select('is_onboarded, full_name')
+    .eq('user_id', user.id)
+    .single();
+  if (!(profileCheck as any)?.is_onboarded) redirect('/onboarding');
+
   const { data: walletData } = await supabase
     .from('wallets')
     .select('*')

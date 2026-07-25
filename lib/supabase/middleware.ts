@@ -30,13 +30,16 @@ export async function updateSession(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
 
   // Protect dashboard and admin routes
-  const protectedPaths = ['/onboarding', '/wallet', '/transactions', '/deposit', '/send', '/card', '/referrals', '/profile', '/sell', '/support'];
+  const protectedPaths = ['/onboarding', '/wallet', '/transactions', '/deposit', '/send', '/card', '/referrals', '/profile', '/sell', '/support', '/dashboard'];
   const adminPaths = ['/admin'];
+  const authPaths = ['/auth/login', '/auth/sign-up', '/welcome'];
   const pathname = request.nextUrl.pathname;
 
   const isProtected = protectedPaths.some(p => pathname.startsWith(p));
   const isAdmin = adminPaths.some(p => pathname.startsWith(p));
+  const isAuthPage = authPaths.some(p => pathname.startsWith(p));
 
+  // Not logged in — redirect protected routes to login
   if (!user && (isProtected || isAdmin)) {
     const url = request.nextUrl.clone();
     url.pathname = '/auth/login';
@@ -54,15 +57,15 @@ export async function updateSession(request: NextRequest) {
 
     if (!profile || (profile.role !== 'admin' && profile.role !== 'super_admin')) {
       const url = request.nextUrl.clone();
-      url.pathname = '/';
+      url.pathname = '/wallet';
       return NextResponse.redirect(url);
     }
   }
 
-  // Redirect logged-in users away from auth pages
-  if (user && (pathname === '/auth/login' || pathname === '/auth/sign-up' || pathname === '/welcome')) {
+  // Logged-in user trying to access auth pages — send them to wallet dashboard
+  if (user && isAuthPage) {
     const url = request.nextUrl.clone();
-    url.pathname = '/';
+    url.pathname = '/wallet';
     return NextResponse.redirect(url);
   }
 
