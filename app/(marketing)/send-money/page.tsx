@@ -41,7 +41,7 @@ export default function SendMoneyPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="/auth/register"
+                href="/auth/sign-up"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:bg-brand-700 transition-all duration-200"
               >
                 Send Money Now
@@ -200,7 +200,7 @@ export default function SendMoneyPage() {
         heading="Experience Fast Transfers"
         subtext="Create your account, fund it via mobile money, and start sending USDT globally in seconds."
         buttonText="Send Money Now"
-        buttonHref="/auth/register"
+        buttonHref="/auth/sign-up"
         secondaryButtonText="Learn More"
         secondaryButtonHref="#"
       />

@@ -37,7 +37,7 @@ export default function FeatureSection({
                 {badge}
               </span>
             )}
-            <h2 className="font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-6">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-6 leading-tight">
               {title}
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed mb-8">
@@ -48,8 +48,8 @@ export default function FeatureSection({
               <ul className="space-y-4 mb-8">
                 {bullets.map((bullet, i) => (
                   <li key={i} className="flex items-start gap-3 text-slate-600">
-                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-600">
-                      <Check className="h-4 w-4" />
+                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-sm shadow-brand-500/30">
+                      <Check className="h-3.5 w-3.5" strokeWidth={3} />
                     </div>
                     <span className="text-base">{bullet}</span>
                   </li>
@@ -70,15 +70,15 @@ export default function FeatureSection({
             )}
           </div>
 
-          {/* Visual Showcase (Card, Chart, Interactive mockup, etc.) */}
+          {/* Visual Showcase */}
           <div className="lg:col-span-6">
             <div className="relative flex justify-center items-center">
               {/* Decorative backgrounds */}
-              <div className="absolute -inset-4 rounded-3xl bg-slate-100/50 [mask-image:radial-gradient(closest-side,white,transparent)]" />
-              <div className="absolute -top-12 -left-12 h-64 w-64 rounded-full bg-brand-100/40 blur-3xl" />
-              <div className="absolute -bottom-12 -right-12 h-64 w-64 rounded-full bg-gold-100/30 blur-3xl" />
+              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-slate-100/50 to-blue-50/30 [mask-image:radial-gradient(closest-side,white,transparent)]" />
+              <div className="absolute -top-12 -left-12 h-64 w-64 rounded-full bg-brand-100/40 blur-3xl animate-float" />
+              <div className="absolute -bottom-12 -right-12 h-64 w-64 rounded-full bg-gold-400/10 blur-3xl animate-float-delayed" />
 
-              <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200/80 bg-white/65 p-2 shadow-xl shadow-slate-100/50 backdrop-blur-sm">
+              <div className="card-hover relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 p-2 shadow-2xl shadow-slate-200/50 backdrop-blur-md hover:shadow-premium-lg">
                 {visual}
               </div>
             </div>

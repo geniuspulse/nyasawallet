@@ -66,7 +66,7 @@ export default async function DashboardLayout({
   const balance = wallet ? Number(wallet.balance) : 0;
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-slate-50">
+    <div className="flex flex-col md:flex-row min-h-screen mesh-gradient">
       {/* Sidebar Navigation */}
       <Sidebar
         userEmail={user.email || ''}

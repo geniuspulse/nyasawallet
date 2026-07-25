@@ -67,7 +67,7 @@ export default function VirtualCardPage() {
               </p>
               <div className="mt-10">
                 <a
-                  href="/auth/register"
+                  href="/auth/sign-up"
                   className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:bg-brand-700 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 transition-all duration-200"
                 >
                   Get Your Card
@@ -247,7 +247,7 @@ export default function VirtualCardPage() {
         heading="Unlock Your Global Spending Power"
         subtext="Create your account, deposit MWK, convert to USDT, and generate your virtual card in under 5 minutes."
         buttonText="Get Your Card Now"
-        buttonHref="/auth/register"
+        buttonHref="/auth/sign-up"
         secondaryButtonText="Learn More"
         secondaryButtonHref="#"
       />

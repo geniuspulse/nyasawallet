@@ -273,7 +273,7 @@ export default function BuyUsdtPage() {
         heading="Ready to Buy USDT?"
         subtext="Create your free wallet, choose your network, and complete your purchase instantly with Airtel Money, TNM Mpamba, or Bank Transfer."
         buttonText="Get Started"
-        buttonHref="/auth/register"
+        buttonHref="/auth/sign-up"
         secondaryButtonText="Compare Rates"
         secondaryButtonHref="#"
       />

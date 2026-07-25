@@ -19,11 +19,14 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
       <div
         ref={ref}
         className={cn(
-          "bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between gap-4",
+          "card-hover relative overflow-hidden bg-white border border-slate-200/80 rounded-2xl p-5 shadow-card hover:shadow-card-hover flex flex-col justify-between gap-4 group",
           className
         )}
         {...props}
       >
+        {/* Subtle gradient accent top border */}
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500/0 via-brand-500/40 to-brand-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-1 min-w-0">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider select-none">
@@ -34,7 +37,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
             </span>
           </div>
           {icon && (
-            <div className="h-10 w-10 rounded-xl bg-slate-50 text-slate-600 border border-slate-100 flex items-center justify-center shrink-0 shadow-sm">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 text-brand-600 border border-brand-100 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:from-brand-100 group-hover:to-brand-200 transition-all duration-200">
               {icon}
             </div>
           )}

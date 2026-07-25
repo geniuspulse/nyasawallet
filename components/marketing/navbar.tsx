@@ -21,13 +21,13 @@ export default function Navbar() {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-slate-100 bg-white/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full border-b border-slate-100/80 bg-white/70 backdrop-blur-xl shadow-sm shadow-slate-100/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white shadow-md shadow-brand-500/20">
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-md shadow-brand-500/25 group-hover:shadow-lg group-hover:shadow-brand-500/30 transition-shadow duration-200">
                 <Wallet className="h-5 w-5" />
               </div>
               <span className="font-display text-xl font-bold tracking-tight text-slate-900">
@@ -42,13 +42,16 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-brand-600 ${
+                className={`text-sm font-medium transition-colors relative hover:text-brand-600 ${
                   isActive(link.href)
                     ? 'text-brand-600'
                     : 'text-slate-600'
                 }`}
               >
                 {link.name}
+                {isActive(link.href) && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-brand-600" />
+                )}
               </Link>
             ))}
           </div>
@@ -63,7 +66,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/auth/sign-up"
-              className="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 transition-all duration-200"
+              className="shine-btn inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-brand-500/25 hover:bg-brand-700 hover:shadow-md hover:shadow-brand-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 transition-all duration-200 active:scale-[0.97]"
             >
               Get Started
             </Link>
@@ -74,7 +77,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 hover:bg-slate-50 hover:text-slate-950 focus:outline-none"
+              className="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 hover:bg-slate-50 hover:text-slate-950 focus:outline-none transition-colors"
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
@@ -112,14 +115,14 @@ export default function Navbar() {
               <Link
                 href="/auth/login"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                className="flex items-center justify-center rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
               >
                 Sign In
               </Link>
               <Link
                 href="/auth/sign-up"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700"
+                className="shine-btn flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-brand-500/25 hover:bg-brand-700 transition-all active:scale-[0.97]"
               >
                 Get Started
               </Link>

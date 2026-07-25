@@ -89,7 +89,7 @@ export default function MobileMoneyPage() {
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
                 <a
-                  href="/auth/register"
+                  href="/auth/sign-up"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 text-base font-semibold text-white shadow-md hover:bg-brand-700 transition-all duration-200"
                 >
                   Convert Mobile Money
@@ -239,7 +239,7 @@ export default function MobileMoneyPage() {
         heading="Convert Your Mobile Money Instantly"
         subtext="Sign up for Nyasawallet, choose your provider, and load your secure USDT balance using Airtel Money or TNM Mpamba today."
         buttonText="Convert Now"
-        buttonHref="/auth/register"
+        buttonHref="/auth/sign-up"
         secondaryButtonText="Compare Rates"
         secondaryButtonHref="#"
       />

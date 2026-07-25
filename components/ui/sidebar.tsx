@@ -29,7 +29,7 @@ export interface SidebarProps {
 }
 
 const navItems = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Wallet', href: '/wallet', icon: Wallet },
   { name: 'Transactions', href: '/transactions', icon: History },
   { name: 'Deposit', href: '/deposit', icon: ArrowDownLeft },
@@ -70,9 +70,9 @@ export function Sidebar({ userEmail = '', fullName = '', walletBalance = 0 }: Si
             href={item.href}
             onClick={closeSidebar}
             className={cn(
-              'group flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 gap-3.5',
+              'group flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 gap-3.5 relative',
               isActive
-                ? 'bg-brand-50 text-brand-600 shadow-sm shadow-brand-100/50'
+                ? 'bg-gradient-to-r from-brand-50 to-brand-50/30 text-brand-700 shadow-sm shadow-brand-100/50 nav-active-indicator'
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             )}
           >
@@ -92,9 +92,9 @@ export function Sidebar({ userEmail = '', fullName = '', walletBalance = 0 }: Si
   return (
     <>
       {/* Mobile Top Header */}
-      <div className="md:hidden flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 sticky top-0 z-30">
+      <div className="md:hidden flex h-16 items-center justify-between border-b border-slate-200 bg-white/80 backdrop-blur-md px-4 sticky top-0 z-30 shadow-sm">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white shadow-md shadow-brand-200">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-md shadow-brand-500/25">
             <Coins className="h-5 w-5" />
           </div>
           <span className="font-display font-bold text-lg text-slate-900 tracking-tight">
@@ -103,7 +103,7 @@ export function Sidebar({ userEmail = '', fullName = '', walletBalance = 0 }: Si
         </Link>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-50 hover:text-slate-900 border border-slate-200 focus:outline-none"
+          className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-50 hover:text-slate-900 border border-slate-200 focus:outline-none transition-colors"
           aria-label="Toggle navigation menu"
         >
           <Menu className="h-6 w-6" />
@@ -117,24 +117,24 @@ export function Sidebar({ userEmail = '', fullName = '', walletBalance = 0 }: Si
             className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300"
             onClick={closeSidebar}
           />
-          <div className="fixed inset-y-0 left-0 flex w-72 flex-col bg-white border-r border-slate-200 shadow-2xl z-50">
+          <div className="fixed inset-y-0 left-0 flex w-72 flex-col bg-white border-r border-slate-200 shadow-2xl z-50 animate-slide-in">
             <div className="flex h-16 items-center justify-between px-6 border-b border-slate-100 shrink-0">
               <Link href="/" className="flex items-center gap-2" onClick={closeSidebar}>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white shadow-md">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-md shadow-brand-500/25">
                   <Coins className="h-5 w-5" />
                 </div>
                 <span className="font-display font-bold text-lg text-slate-900 tracking-tight">
                   Nyasawallet
                 </span>
               </Link>
-              <button onClick={closeSidebar} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50" aria-label="Close menu">
+              <button onClick={closeSidebar} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50 transition-colors" aria-label="Close menu">
                 <X className="h-5 w-5" />
               </button>
             </div>
             {renderNavItems()}
             <div className="p-4 border-t border-slate-100">
               <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
-                <div className="h-9 w-9 rounded-full bg-brand-100 flex items-center justify-center text-sm font-semibold text-brand-700">
+                <div className="h-9 w-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-sm font-semibold text-white shadow-sm">
                   {initials}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -153,8 +153,8 @@ export function Sidebar({ userEmail = '', fullName = '', walletBalance = 0 }: Si
       {/* Desktop Sidebar */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-white border-r border-slate-200 shrink-0 z-20">
         <div className="flex h-20 items-center px-6 border-b border-slate-100 gap-2.5 shrink-0">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white shadow-md shadow-brand-200">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-md shadow-brand-500/25 group-hover:shadow-lg group-hover:shadow-brand-500/30 transition-shadow duration-200">
               <Coins className="h-5 w-5" />
             </div>
             <span className="font-display font-bold text-xl text-slate-900 tracking-tight">
@@ -163,9 +163,9 @@ export function Sidebar({ userEmail = '', fullName = '', walletBalance = 0 }: Si
           </Link>
         </div>
         {renderNavItems()}
-        <div className="p-4 border-t border-slate-100 bg-slate-50/30 shrink-0">
-          <div className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors">
-            <div className="h-9 w-9 rounded-full bg-brand-100 flex items-center justify-center text-sm font-semibold text-brand-700">
+        <div className="p-4 border-t border-slate-100 bg-gradient-to-b from-transparent to-slate-50/30 shrink-0">
+          <div className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">
+            <div className="h-9 w-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-sm font-semibold text-white shadow-sm">
               {initials}
             </div>
             <div className="min-w-0 flex-1">

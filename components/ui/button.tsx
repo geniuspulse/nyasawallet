@@ -13,14 +13,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         className={cn(
-          'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 disabled:pointer-events-none disabled:opacity-50',
+          'shine-btn inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97]',
           {
-            'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800': variant === 'primary',
-            'bg-slate-100 text-slate-900 hover:bg-slate-200 active:bg-slate-300': variant === 'secondary',
-            'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 active:bg-slate-100': variant === 'outline',
+            'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-sm shadow-brand-500/25 hover:shadow-md hover:shadow-brand-500/30': variant === 'primary',
+            'bg-slate-100 text-slate-900 hover:bg-slate-200 active:bg-slate-300 shadow-sm': variant === 'secondary',
+            'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400 active:bg-slate-100 shadow-sm': variant === 'outline',
             'text-slate-700 hover:bg-slate-100 active:bg-slate-200': variant === 'ghost',
-            'bg-red-600 text-white hover:bg-red-700 active:bg-red-800': variant === 'danger',
-            'bg-gold-500 text-white hover:bg-gold-600 active:bg-gold-600': variant === 'gold',
+            'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm shadow-red-500/25': variant === 'danger',
+            'bg-gold-500 text-white hover:bg-gold-600 active:bg-gold-600 shadow-sm shadow-gold-500/25': variant === 'gold',
             'text-brand-600 underline-offset-4 hover:underline': variant === 'link',
           },
           {
