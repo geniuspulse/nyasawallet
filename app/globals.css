@@ -11,11 +11,46 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+/* ============================
+   Mobile Touch Optimization
+   ============================ */
+@media (max-width: 768px) {
+  /* Ensure tap targets are at least 44px */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Prevent text selection on buttons */
+  button {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Larger touch targets for form inputs */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevent iOS zoom */
+    min-height: 44px;
+  }
+
+  /* Smooth scroll for the whole page */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 /* ============================
@@ -242,4 +277,74 @@ body {
    ============================ */
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ============================
+   Safe area helpers
+   ============================ */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+.pb-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ============================
+   Grid pattern (auth background)
+   ============================ */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ============================
+   Floating animation delayed
+   ============================ */
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* ============================
+   Gradient shift animation
+   ============================ */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ============================
+   Slide up animation
+   ============================ */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============================
+   Scale in animation
+   ============================ */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }

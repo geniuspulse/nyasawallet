@@ -13,24 +13,24 @@ const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(
       <div
         ref={ref}
         className={cn(
-          "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 mb-2",
+          "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 pb-3 sm:pb-4 mb-1 sm:mb-2",
           className
         )}
         {...props}
       >
         <div className="flex flex-col gap-0.5 min-w-0">
-          <h1 className="section-heading text-xl sm:text-2xl leading-tight">
+          <h1 className="section-heading text-lg sm:text-2xl leading-tight">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-sm text-slate-500 font-medium max-w-2xl leading-snug">
+            <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-2xl leading-snug">
               {subtitle}
             </p>
           )}
         </div>
         
         {action && (
-          <div className="flex items-center shrink-0 self-start sm:self-auto">
+          <div className="flex items-center shrink-0">
             {action}
           </div>
         )}

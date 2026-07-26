@@ -18,8 +18,11 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-lg border-t border-slate-200/80">
-      <div className="flex items-center justify-around px-2 py-1.5 pb-[env(safe-area-inset-bottom)]">
+    <nav 
+      className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-lg border-t border-slate-200/80 shadow-[0_-1px_8px_rgba(0,0,0,0.04)]"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    >
+      <div className="flex items-center justify-around px-1 py-1">
         {bottomNavItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
           const Icon = item.icon;
@@ -29,17 +32,17 @@ export function BottomNav() {
               key={item.name}
               href={item.href}
               className={cn(
-                'flex flex-col items-center justify-center gap-0.5 px-2 py-1.5 rounded-lg transition-all duration-200 min-w-[56px]',
-                isActive ? 'text-brand-600' : 'text-slate-400 hover:text-slate-600'
+                'relative flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-lg transition-all duration-200 min-w-[52px] min-h-[44px] active:scale-95',
+                isActive ? 'text-brand-600' : 'text-slate-400'
               )}
             >
-              <Icon className={cn('h-5 w-5 transition-transform', isActive && 'scale-110')} />
-              <span className={cn('text-[10px] font-semibold', isActive && 'text-brand-600')}>
+              {isActive && (
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-brand-600" />
+              )}
+              <Icon className={cn('h-[22px] w-[22px] transition-transform', isActive && 'scale-110')} />
+              <span className={cn('text-[10px] font-semibold tracking-tight', isActive && 'text-brand-600')}>
                 {item.name}
               </span>
-              {isActive && (
-                <span className="absolute -top-px h-0.5 w-8 rounded-full bg-brand-600" />
-              )}
             </Link>
           );
         })}

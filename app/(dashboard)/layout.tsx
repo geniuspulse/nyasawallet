@@ -67,8 +67,8 @@ export default async function DashboardLayout({
   const balance = wallet ? Number(wallet.balance) : 0;
 
   return (
-    <div className="flex min-h-screen bg-slate-50/50">
-      {/* Sidebar Navigation (desktop) */}
+    <div className="flex flex-col md:flex-row min-h-screen bg-slate-50/50">
+      {/* Sidebar Navigation (desktop) + Mobile Header */}
       <Sidebar
         userEmail={user.email || ''}
         fullName={profile.full_name || ''}
@@ -76,7 +76,7 @@ export default async function DashboardLayout({
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 md:ml-64 px-4 py-4 md:px-8 md:py-6 pb-24 md:pb-8 overflow-y-auto">
+      <main className="flex-1 md:ml-60 px-4 pt-4 md:px-8 md:py-6 pb-20 md:pb-8 overflow-y-auto">
         <div className="max-w-6xl mx-auto w-full">
           {children}
         </div>

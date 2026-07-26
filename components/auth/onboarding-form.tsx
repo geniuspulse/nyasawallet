@@ -19,7 +19,6 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
 
   const referralParam = searchParams.get('ref') || '';
 
-  // Form states
   const [step, setStep] = useState(1);
   const [fullName, setFullName] = useState(initialProfile?.full_name || '');
   const [phoneNumber, setPhoneNumber] = useState(initialProfile?.phone_number || '');
@@ -33,7 +32,6 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Sync referral code from URL parameter if it changes
   useEffect(() => {
     if (referralParam && !referralCode) {
       setReferralCode(referralParam);
@@ -72,7 +70,6 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
     setError(null);
 
     try {
-      // 1. Update the profile
       const { error: updateError } = await supabase
         .from('profiles')
         .update({
@@ -88,18 +85,14 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
         })
         .eq('user_id', user.id);
 
-      if (updateError) {
-        throw updateError;
-      }
+      if (updateError) throw updateError;
 
-      // 2. Check if a default wallet is needed or if wallets already exist
       const { data: existingWallets, error: walletQueryError } = await supabase
         .from('wallets')
         .select('id')
         .eq('user_id', user.id);
 
       if (!walletQueryError && (!existingWallets || existingWallets.length === 0)) {
-        // Create a default USDT wallet for the user
         await supabase.from('wallets').insert({
           user_id: user.id,
           type: 'usdt',
@@ -110,7 +103,6 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
         });
       }
 
-      // Redirect home
       router.push('/dashboard');
       router.refresh();
     } catch (err: any) {
@@ -123,15 +115,15 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
   const progressPercentage = step === 1 ? 33 : step === 2 ? 66 : 100;
 
   return (
-    <div className="mx-auto w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+    <div className="mx-auto w-full max-w-lg bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
       {/* Top Banner / Progress Header */}
-      <div className="bg-gradient-to-r from-brand-500 to-brand-600 p-6 text-white text-center">
-        <h2 className="text-2xl font-extrabold">Welcome to Nyasawallet</h2>
-        <p className="text-sm text-blue-100 mt-1">Let&apos;s get your digital asset wallet set up in 3 simple steps.</p>
+      <div className="bg-gradient-to-r from-brand-500 to-brand-600 p-5 sm:p-6 text-white text-center">
+        <h2 className="text-xl sm:text-2xl font-extrabold">Welcome to Nyasawallet</h2>
+        <p className="text-sm text-blue-100 mt-1">Let&apos;s get your wallet set up in 3 simple steps.</p>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full bg-gray-100 h-2 relative">
+      <div className="w-full bg-gray-100 h-1.5">
         <div 
           className="bg-amber-400 h-full transition-all duration-500 ease-in-out"
           style={{ width: `${progressPercentage}%` }}
@@ -139,43 +131,43 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
       </div>
 
       {/* Step Indicators */}
-      <div className="px-8 pt-6 pb-2 flex justify-between items-center text-xs font-semibold text-gray-500">
-        <div className={`flex items-center gap-1.5 ${step >= 1 ? 'text-brand-600' : ''}`}>
+      <div className="px-5 sm:px-8 pt-5 pb-2 flex justify-between items-center text-xs font-semibold text-gray-500">
+        <div className={`flex items-center gap-1 ${step >= 1 ? 'text-brand-600' : ''}`}>
           <div className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] border ${step > 1 ? 'bg-brand-600 border-brand-600 text-white' : step === 1 ? 'border-brand-600 text-brand-600 ring-2 ring-brand-100' : 'border-gray-300'}`}>
             {step > 1 ? <Check className="h-3.5 w-3.5" /> : '1'}
           </div>
-          <span>Personal</span>
+          <span className="hidden sm:inline">Personal</span>
         </div>
-        <div className="h-[1px] flex-1 bg-gray-200 mx-3" />
-        <div className={`flex items-center gap-1.5 ${step >= 2 ? 'text-brand-600' : ''}`}>
+        <div className="h-px flex-1 bg-gray-200 mx-2" />
+        <div className={`flex items-center gap-1 ${step >= 2 ? 'text-brand-600' : ''}`}>
           <div className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] border ${step > 2 ? 'bg-brand-600 border-brand-600 text-white' : step === 2 ? 'border-brand-600 text-brand-600 ring-2 ring-brand-100' : 'border-gray-300'}`}>
             {step > 2 ? <Check className="h-3.5 w-3.5" /> : '2'}
           </div>
-          <span>Verification</span>
+          <span className="hidden sm:inline">Verification</span>
         </div>
-        <div className="h-[1px] flex-1 bg-gray-200 mx-3" />
-        <div className={`flex items-center gap-1.5 ${step >= 3 ? 'text-brand-600' : ''}`}>
+        <div className="h-px flex-1 bg-gray-200 mx-2" />
+        <div className={`flex items-center gap-1 ${step >= 3 ? 'text-brand-600' : ''}`}>
           <div className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] border ${step === 3 ? 'border-brand-600 text-brand-600 ring-2 ring-brand-100' : 'border-gray-300'}`}>
             3
           </div>
-          <span>Referral</span>
+          <span className="hidden sm:inline">Referral</span>
         </div>
       </div>
 
-      <div className="p-8">
+      <div className="p-5 sm:p-8">
         {error && (
-          <div className="mb-6 rounded-lg bg-red-50 p-4 text-sm text-red-600 border border-red-200">
+          <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-200">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* STEP 1: Personal Info */}
           {step === 1 && (
-            <div className="space-y-5 animate-fadeIn">
+            <div className="space-y-4 animate-fade-in">
               <div className="flex items-center gap-2 pb-2 border-b border-gray-100">
                 <User className="h-5 w-5 text-brand-600" />
-                <h3 className="text-lg font-bold text-gray-900">Personal Information</h3>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900">Personal Information</h3>
               </div>
 
               <div>
@@ -189,7 +181,7 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="John Banda"
-                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm"
+                  className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-base shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                 />
               </div>
 
@@ -204,7 +196,7 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="+265 888 12 34 56"
-                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm"
+                  className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-base shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                 />
               </div>
 
@@ -216,7 +208,7 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
                   id="country"
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm"
+                  className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-base shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                 >
                   {COUNTRIES.map((c) => (
                     <option key={c.code} value={c.code}>
@@ -230,10 +222,10 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
 
           {/* STEP 2: ID Verification */}
           {step === 2 && (
-            <div className="space-y-5 animate-fadeIn">
+            <div className="space-y-4 animate-fade-in">
               <div className="flex items-center gap-2 pb-2 border-b border-gray-100">
                 <FileText className="h-5 w-5 text-brand-600" />
-                <h3 className="text-lg font-bold text-gray-900">Identity Verification</h3>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900">Identity Verification</h3>
               </div>
 
               <div>
@@ -244,7 +236,7 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
                   id="idType"
                   value={idType}
                   onChange={(e) => setIdType(e.target.value)}
-                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm"
+                  className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-base shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                 >
                   <option value="National ID">National ID</option>
                   <option value="Passport">Passport</option>
@@ -263,12 +255,12 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
                   value={idNumber}
                   onChange={(e) => setIdNumber(e.target.value)}
                   placeholder="Enter document number"
-                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm"
+                  className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-base shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                 />
               </div>
 
-              <div className="rounded-lg bg-blue-50 border border-blue-100 p-4 text-xs text-blue-700 flex gap-2">
-                <span className="font-bold">Note:</span>
+              <div className="rounded-lg bg-blue-50 border border-blue-100 p-3 text-xs text-blue-700 flex gap-2">
+                <span className="font-bold shrink-0">Note:</span>
                 <span>We are regulated and required to verify your identity to protect your wallet and comply with pan-African fintech rules.</span>
               </div>
             </div>
@@ -276,10 +268,10 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
 
           {/* STEP 3: Referral Code */}
           {step === 3 && (
-            <div className="space-y-5 animate-fadeIn">
+            <div className="space-y-4 animate-fade-in">
               <div className="flex items-center gap-2 pb-2 border-b border-gray-100">
                 <Gift className="h-5 w-5 text-brand-600" />
-                <h3 className="text-lg font-bold text-gray-900">Referral Code (Optional)</h3>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900">Referral Code (Optional)</h3>
               </div>
 
               <div>
@@ -292,14 +284,14 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
                   value={referralCode}
                   onChange={(e) => setReferralCode(e.target.value)}
                   placeholder="e.g. NYASA-123"
-                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm focus:border-brand-500 focus:ring-brand-500 sm:text-sm"
+                  className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-base shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                 />
                 <p className="mt-1.5 text-xs text-gray-400">
-                  If a friend invited you, enter their code here to earn signup bonus credits.
+                  If a friend invited you, enter their code to earn signup bonus credits.
                 </p>
               </div>
 
-              <div className="rounded-xl border border-dashed border-gray-200 p-6 text-center space-y-2">
+              <div className="rounded-lg border border-dashed border-gray-200 p-4 text-center space-y-1.5">
                 <p className="text-sm font-medium text-gray-900">Onboarding Summary</p>
                 <p className="text-xs text-gray-500">
                   {fullName} &bull; {phoneNumber} &bull; {COUNTRIES.find(c => c.code === country)?.name}
@@ -318,10 +310,10 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
                 type="button"
                 onClick={handlePrevStep}
                 disabled={loading}
-                className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 transition-colors disabled:opacity-50"
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 min-h-[44px]"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Back
+                <span className="hidden sm:inline">Back</span>
               </button>
             ) : (
               <div />
@@ -331,7 +323,8 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg bg-brand-600 text-sm font-semibold text-white hover:bg-brand-700 transition-colors shadow-sm ml-auto"
+                disabled={loading}
+                className="flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg bg-brand-600 text-sm font-semibold text-white hover:bg-brand-700 transition-colors shadow-sm min-h-[44px] active:scale-95"
               >
                 Continue
                 <ArrowRight className="h-4 w-4" />
@@ -340,7 +333,7 @@ export function OnboardingForm({ user, initialProfile }: OnboardingFormProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex items-center justify-center gap-1.5 px-6 py-2.5 rounded-lg bg-brand-600 text-sm font-semibold text-white hover:bg-brand-700 transition-colors shadow-sm disabled:cursor-not-allowed disabled:opacity-50 ml-auto"
+                className="flex items-center justify-center gap-1.5 px-6 py-2.5 rounded-lg bg-brand-600 text-sm font-semibold text-white hover:bg-brand-700 transition-colors shadow-sm disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px] active:scale-95"
               >
                 {loading ? (
                   <>
